@@ -1,18 +1,42 @@
 import React, { useEffect, useRef, useState } from 'react'
+import ListItemsMemoized_Code from './ListItemsMemoized_Code';
 
 const ListItemsMemoized = () => {
     const [pauseAddItems, setPauseAddItems] = useState(true);
+    const [tab, setTab] = useState<"list" | "code">("list");
+
     return (
         <div className='flex flex-col items-center gap-2'>
             <h1 className='text-2xl font-bold'>List Items with memoization</h1>
-            <div className="start-stop-section">
+            <div className="tabs flex gap-2">
                 <button
-                    className='bg-button-background text-button-foreground p-2 rounded-full hover:bg-button-hover px-4'
-                    onClick={() => setPauseAddItems(!pauseAddItems)}>
-                    {pauseAddItems ? "Start" : "Stop"}
+                    className={`text-button-foreground p-2 rounded-full hover:bg-button-hover px-4 ${tab === "list" ? "bg-active-tab" : "bg-button-background"}`}
+                    onClick={() => setTab("list")}>
+                    List
+                </button>
+                <button
+                    className={`text-button-foreground p-2 rounded-full hover:bg-button-hover px-4 ${tab === "code" ? "bg-active-tab" : "bg-button-background"}`}
+                    onClick={() => setTab("code")}>
+                    Code
                 </button>
             </div>
-            <List pauseAddItems={pauseAddItems} />
+            {tab === "list" && (
+                <div className='list-items-without-memo flex flex-col items-center gap-2 w-full'>
+                    <button
+                        className='bg-button-background text-button-foreground p-2 rounded-full hover:bg-button-hover px-4'
+                        onClick={() => setPauseAddItems(!pauseAddItems)}>
+                        {pauseAddItems ? "Start" : "Stop"}
+                    </button>
+                    <List pauseAddItems={pauseAddItems} />
+                </div>
+            )}
+            {tab === "code" && (
+                <div className='list-items-without-memo-code'>
+                    <pre className='h-[500px] w-full text-sm overflow-y-auto hide-scrollbar border p-4 border-border rounded-lg text-left text-wrap'>
+                        {ListItemsMemoized_Code}
+                    </pre>
+                </div>
+            )}
         </div>
     )
 }
@@ -49,7 +73,7 @@ const List = React.memo(({ pauseAddItems }: { pauseAddItems: boolean }) => {
     }, [listItems]);
 
     return (
-        <div ref={listRef} className="h-[500px] w-[500px] overflow-y-auto hide-scrollbar border p-4 border-border rounded-lg">
+        <div ref={listRef} className="h-[450px] w-full overflow-y-auto hide-scrollbar border p-4 border-border rounded-lg">
             {listItems.map((item, index) => (
                 <ListItem key={index} item={item} />
             ))}

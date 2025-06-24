@@ -9,6 +9,7 @@
   --color-button-background: var(--color-button-background);
   --color-button-foreground: var(--color-button-foreground);
   --color-button-hover: var(--color-button-hover);
+  --color-active-tab: var(--color-active-tab);
 }
 
 :root {
@@ -18,6 +19,7 @@
   --color-button-background: var(--color-black);
   --color-button-foreground: var(--color-white);
   --color-button-hover: var(--color-neutral-700);
+  --color-active-tab: var(--color-neutral-700);
 }
 
 .dark {
@@ -27,6 +29,7 @@
   --color-button-background: var(--color-white);
   --color-button-foreground: var(--color-black);
   --color-button-hover: var(--color-neutral-300);
+  --color-active-tab: var(--color-neutral-300);
 }
 
 button,
