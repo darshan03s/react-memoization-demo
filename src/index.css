@@ -60,7 +60,3 @@ a {
     @apply transition-colors duration-300;
   }
 }
-
-* {
-  @apply colors-smooth;
-}
