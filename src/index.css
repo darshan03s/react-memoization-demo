@@ -1,0 +1,32 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+button,
+a {
+  cursor: pointer;
+}
+
+@utility hide-scrollbar {
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@utility colors-fast {
+  @apply transition-colors duration-150;
+
+  & * {
+    @apply transition-colors duration-150;
+  }
+}
+
+@utility colors-smooth {
+  @apply transition-colors duration-300;
+
+  & * {
+    @apply transition-colors duration-300;
+  }
+}
