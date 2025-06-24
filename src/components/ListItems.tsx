@@ -19,11 +19,11 @@ const ListItems = () => {
 
 export default ListItems
 
-const List = React.memo(({ pauseAddItems }: { pauseAddItems: boolean }) => {
-    const [listItems, setListItems] = useState<string[]>([]);
-    const listRef = useRef<HTMLDivElement>(null);
+const INITIAL_ITEMS = Array.from({ length: 5 }, (_, index) => `Item ${index + 1}`);
 
-    const initialItems = Array.from({ length: 5 }, (_, index) => `Item ${index + 1}`);
+const List = React.memo(({ pauseAddItems }: { pauseAddItems: boolean }) => {
+    const [listItems, setListItems] = useState<string[]>(INITIAL_ITEMS);
+    const listRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         const intervalId = setInterval(() => {
@@ -34,10 +34,6 @@ const List = React.memo(({ pauseAddItems }: { pauseAddItems: boolean }) => {
 
         return () => clearInterval(intervalId);
     }, [pauseAddItems]);
-
-    useEffect(() => {
-        setListItems(initialItems);
-    }, []);
 
     function addItems() {
         setListItems((prev) => [...prev, "Item " + (prev.length + 1)]);
