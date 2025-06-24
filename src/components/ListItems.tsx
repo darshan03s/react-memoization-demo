@@ -43,6 +43,8 @@ const ListItems = () => {
 
 export default ListItems
 
+ListItems.displayName = "ListItems";
+
 const INITIAL_ITEMS = Array.from({ length: 5 }, (_, index) => `Item ${index + 1}`);
 
 const List = React.memo(({ pauseAddItems }: { pauseAddItems: boolean }) => {
@@ -81,6 +83,10 @@ const List = React.memo(({ pauseAddItems }: { pauseAddItems: boolean }) => {
     )
 });
 
+List.displayName = "ListMemoized";
+
 const ListItem = ({ item }: { item: string }) => {
     return <div className='p-2 border-b border-border'>{item}</div>;
 };
+
+ListItem.displayName = "ListItem";
