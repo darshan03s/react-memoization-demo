@@ -1,49 +1,23 @@
 import { ThemeToggleButton } from "@/features/theme";
-import React, { useEffect, useRef, useState } from "react";
-
+import ListItems from "@/components/ListItems";
+import ListItemsMemoized from "@/components/ListItemsMemoized";
 const Home = () => {
-  const [listItems, setListItems] = useState<string[]>([]);
-  const listRef = useRef<HTMLDivElement>(null);
-  const [pauseAddItems, setPauseAddItems] = useState(true);
-
-  function addItems() {
-    setListItems((prev) => [...prev, "Item " + (prev.length + 1)]);
-  }
-
-  useEffect(() => {
-    if (listRef.current) {
-      listRef.current.scrollTo({
-        top: listRef.current.scrollHeight,
-        behavior: "instant",
-      });
-    }
-  }, [listItems]);
-
-  useEffect(() => {
-    const intervalId = setInterval(() => {
-      if (!pauseAddItems) {
-        addItems();
-      }
-    }, 150);
-
-    return () => clearInterval(intervalId);
-  }, [pauseAddItems]);
-
   return (
     <>
-      <div className="fixed bottom-4 left-4">
+      <div className="fixed bottom-2 left-2">
         <ThemeToggleButton />
       </div>
-      <div className="flex flex-col gap-4 items-center justify-center min-h-screen h-full bg-white dark:bg-black colors-smooth">
-        <div className="start-stop-section">
-          <button onClick={() => setPauseAddItems(!pauseAddItems)}>
-            {pauseAddItems ? "Start" : "Stop"}
-          </button>
-        </div>
-        <div ref={listRef} className="h-[500px] w-[500px] overflow-y-auto hide-scrollbar border p-2 border-black">
-          {listItems.map((item, index) => (
-            <ListItem key={index} item={item} />
-          ))}
+      <div className="container min-h-screen h-full text-center py-2 bg-background text-foreground dark:bg-background dark:text-foreground dark:border-border">
+        <header>
+          <h1 className="text-2xl font-bold text-center py-2 bg-background text-foreground dark:bg-background dark:text-foreground dark:border-border">React Memoization Demo</h1>
+        </header>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="list-items-without-memo">
+            <ListItems />
+          </div>
+          <div className="list-items-with-memo">
+            <ListItemsMemoized />
+          </div>
         </div>
       </div>
     </>
@@ -51,8 +25,4 @@ const Home = () => {
 };
 
 export default Home;
-
-const ListItem = React.memo(({ item }: { item: string }) => {
-  return <div>{item}</div>;
-});
 
