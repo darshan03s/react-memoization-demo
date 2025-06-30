@@ -7,8 +7,9 @@ const Home = () => {
       <div className="fixed bottom-2 left-2">
         <ThemeToggleButton />
       </div>
-      <ListExample />
-      <ListExample />
+      <div className="max-w-7xl mx-auto">
+        <ListExample />
+      </div>
     </>
   );
 };
